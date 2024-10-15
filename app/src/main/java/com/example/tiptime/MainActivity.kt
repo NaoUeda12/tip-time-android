@@ -23,8 +23,9 @@ class MainActivity : AppCompatActivity() {
 
 
         binding.calculateButton.setOnClickListener {
-//                Toast.makeText(applicationContext, "ボタンが押されました", Toast.LENGTH_SHORT)
-//                    .show()
+//            Toast.makeText(applicationContext, "ボタンが押されました", Toast.LENGTH_SHORT)
+//                .show()
+
             // EditTextの値を取得
             val costInput = binding.costOfService.text.toString()
 
@@ -34,8 +35,8 @@ class MainActivity : AppCompatActivity() {
 
             when (tipPercentageID) {
                 R.id.option_twenty_percent -> tipPercentage = 0.20
-                R.id.option_eighteen_percent -> tipPercentage =0.18
-                R.id.option_fifteen_percent -> tipPercentage =0.15
+                R.id.option_eighteen_percent -> tipPercentage = 0.18
+                R.id.option_fifteen_percent -> tipPercentage = 0.15
             }
             var tip = 0.0
             var totalAmount = 0.0
@@ -46,16 +47,23 @@ class MainActivity : AppCompatActivity() {
                 totalAmount = cost + tip
             }
 
-            binding.tipResult.text = String.format("tip: $%.2f", tip)
+            val toggleButton = binding.roundUpSwitch
 
-            binding.totalAmount.text = String.format("total Amount: $%.2f", totalAmount)
+            toggleButton.setOnCheckedChangeListener { _, isChecked ->
+                // ONのときの処理
+                if (isChecked) {
+                    binding.tipResult.text = String.format("tip: $%d", tip.toInt())
 
+                    binding.totalAmount.text =
+                        String.format("total Amount: $%d", totalAmount.toInt())
 
+                    // OFFのときの処理
+                } else {
+                    binding.tipResult.text = String.format("tip: $%.2f", tip)
 
+                    binding.totalAmount.text = String.format("total Amount: $%.2f", totalAmount)
+                }
+            }
         }
-
     }
-
-
 }
-
