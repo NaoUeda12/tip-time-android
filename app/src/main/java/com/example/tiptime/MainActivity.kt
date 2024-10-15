@@ -47,22 +47,19 @@ class MainActivity : AppCompatActivity() {
                 totalAmount = cost + tip
             }
 
-            val toggleButton = binding.roundUpSwitch
+            val toggleButton = binding.roundUpSwitch.isChecked
+            // ONのときの処理
+            if (toggleButton) {
+                binding.tipResult.text = String.format("tip: $%d", tip.toInt())
 
-            toggleButton.setOnCheckedChangeListener { _, isChecked ->
-                // ONのときの処理
-                if (isChecked) {
-                    binding.tipResult.text = String.format("tip: $%d", tip.toInt())
+                binding.totalAmount.text =
+                    String.format("total Amount: $%d", totalAmount.toInt())
 
-                    binding.totalAmount.text =
-                        String.format("total Amount: $%d", totalAmount.toInt())
+                // OFFのときの処理
+            } else {
+                binding.tipResult.text = String.format("tip: $%.2f", tip)
 
-                    // OFFのときの処理
-                } else {
-                    binding.tipResult.text = String.format("tip: $%.2f", tip)
-
-                    binding.totalAmount.text = String.format("total Amount: $%.2f", totalAmount)
-                }
+                binding.totalAmount.text = String.format("total Amount: $%.2f", totalAmount)
             }
         }
     }
